@@ -16,6 +16,7 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     belong_user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     create_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", label="create time", read_only=True, help_text="create time")
+    update_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", label="create time", read_only=True, help_text="update time")
 
     def to_representation(self, instance):
         resource_type_obj = instance.resource_type

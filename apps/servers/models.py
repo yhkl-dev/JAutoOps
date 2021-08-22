@@ -20,8 +20,8 @@ class ServerAliCloudInstanceModel(models.Model):
     IpAddress = models.CharField('IpAddress', max_length=39, default=None, null=True, help_text='IpAddress')
     OSType = models.CharField('OSType', max_length=40, default=None, null=True, help_text='OSType')
     RegionId = models.CharField('RegionId', max_length=40, default=None, null=True, help_text='RegionId')
-    StartTime = models.DateTimeField('StartTime', auto_now=True, help_text='start time')
-    ExpiredTime = models.DateTimeField('ExpiredTime', auto_now=True, help_text='start time')
+    StartTime = models.DateTimeField('StartTime', null=True, help_text='start time')
+    ExpiredTime = models.DateTimeField('ExpiredTime', null=True, help_text='expired time')
     LastUpdateTime = models.DateTimeField('last update datetime', auto_now=True, help_text='last update time')
 
     def __str__(self):

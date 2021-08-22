@@ -92,8 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'JOPS',
         'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '39.97.183.24',
+        'PASSWORD': '3edc4rfv#EDC$RFV',
+        'HOST': '139.198.29.3',
         'PORT': 9432
     }
 }
@@ -142,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -159,3 +159,4 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

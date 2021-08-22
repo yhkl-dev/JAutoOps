@@ -22,6 +22,9 @@ class ResourceSerializer(serializers.ModelSerializer):
         resource_type_obj = instance.resource_type
         user_obj = instance.belong_user
         ret = super(ResourceSerializer, self).to_representation(instance)
+        ret['access_key'] = "*" * 12
+        ret['access_secret'] = "*" * 12
+        ret['ram_password'] = "*" * 12
         ret['type_name'] = resource_type_obj.type_name
         ret['type_icon'] = resource_type_obj.type_icon
         ret['belong_user'] = user_obj.username

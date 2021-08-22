@@ -1,14 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import Group
+from django.db import models
 
 
 class Menu(models.Model):
-
-    path = models.CharField("目录名或文件名", max_length=100, default='/', help_text="目录名或文件名")
-    icon = models.CharField("图标名", max_length=32, null=True, help_text="图标名")
+    path = models.CharField("directory name/file name", max_length=100, default='/', help_text="目录名或文件名")
+    icon = models.CharField("icon name", max_length=32, null=True, help_text="icon name")
     title = models.CharField("路由显示名", max_length=255, null=False, help_text="路由显示名")
     show = models.BooleanField("该路由是否显示", default=False, help_text="该路由是否显示")
-    parent = models.ForeignKey("self", null=True, verbose_name="上级菜单", help_text="上级菜单", on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", null=True, verbose_name="parent menu", help_text="parent menu", on_delete=models.CASCADE)
     groups = models.ManyToManyField(
         Group,
         verbose_name='groups',

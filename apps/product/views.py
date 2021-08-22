@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from Jauto.paginations import Pagination
+from .models import ProductModel
+from .serializer import ProductModelSerializer
+
+
+class ProjectTypeViewSet(viewsets.ModelViewSet):
+    queryset = ProductModel.objects.all()
+    serializer_class = ProductModelSerializer
+    pagination_class = Pagination

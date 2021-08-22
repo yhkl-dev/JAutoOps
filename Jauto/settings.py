@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'permissions.apps.PermissionsConfig',
     'resources.apps.ResourcesConfig',
     'servers.apps.ServersConfig',
-    'project.apps.ProjectConfig'
+    'project.apps.ProjectConfig',
+    'product.apps.ProductConfig'
 ]
 
 MIDDLEWARE = [

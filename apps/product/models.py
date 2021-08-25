@@ -5,7 +5,7 @@ User = get_user_model()
 
 
 class ProductModel(models.Model):
-    product_name = models.CharField('product_name', max_length=50, unique=True, null=False, help_text='product name')
+    product_name = models.CharField('product_name', max_length=50, null=False, unique=True, help_text='product name')
     create_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='create user', null=False,
                                     related_name='created_user', help_text='create user')
     create_time = models.DateTimeField('create_time', auto_now_add=True, help_text='create time')

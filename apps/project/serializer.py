@@ -4,6 +4,7 @@ from rest_framework import serializers
 from servers.models import ServerAliCloudInstanceModel
 
 from .models import ProjectType, ProjectModel
+from product.models import ProductModel
 
 User = get_user_model()
 
@@ -26,6 +27,7 @@ class ProjectModelSerializer(serializers.ModelSerializer):
         deployment_server_dev = ServerAliCloudInstanceModel.objects.get(id=instance.deployment_server_dev.id)
         deployment_server_prod = ServerAliCloudInstanceModel.objects.get(id=instance.deployment_server_prod.id)
         group_obj = Group.objects.get(id=instance.belong_group.id)
+        product_obj = ProductModel.objects.get(id=instance.belong_product.id)
         users_obj_list = instance.ops_users.all()
         ops_user_list = [{'id': user.id, "username": user.username} for user in users_obj_list]
         dev_users_obj = instance.dev_users.all()
@@ -42,6 +44,8 @@ class ProjectModelSerializer(serializers.ModelSerializer):
         ret['belong_group_id'] = group_obj.id
         ret['dev_users_list'] = dev_users_list
         ret['ops_users_list'] = ops_user_list
+        ret['belong_product_id'] = product_obj.id
+        ret['belong_product'] = product_obj.product_name
         return ret
 
     class Meta:

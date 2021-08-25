@@ -5,7 +5,7 @@ from .models import ProductModel
 from .serializer import ProductModelSerializer
 
 
-class ProjectTypeViewSet(viewsets.ModelViewSet):
+class ProductModelViewSet(viewsets.ModelViewSet):
     queryset = ProductModel.objects.all()
     serializer_class = ProductModelSerializer
     pagination_class = Pagination

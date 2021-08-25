@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.db import models
 from servers.models import ServerAliCloudInstanceModel
+from product.models import ProductModel
 
 User = get_user_model()
 
@@ -20,6 +21,11 @@ class ProjectType(models.Model):
 
 class ProjectModel(models.Model):
     project_name = models.CharField('project name', max_length=50, null=False, unique=True, help_text='project name')
+
+    belong_product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, verbose_name='belong product',
+                                       null=False,
+                                       related_name='belong_product', help_text='belong product')
+
     create_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='create user', null=False,
                                     related_name='create_user', help_text='create user')
     belong_group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name='belong group', null=False,

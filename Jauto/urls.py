@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from groups.router import group_router
 from menu.router import menu_router
 from permissions.router import permission_router
+from product.router import product_router
 from project.router import project_router
 from resources.router import resource_router
 from rest_framework.documentation import include_docs_urls
@@ -33,6 +34,7 @@ router.registry.extend(permission_router.registry)
 router.registry.extend(resource_router.registry)
 router.registry.extend(instance_router.registry)
 router.registry.extend(project_router.registry)
+router.registry.extend(product_router.registry)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

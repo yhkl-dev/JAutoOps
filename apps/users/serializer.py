@@ -20,6 +20,12 @@ class UserSerializer(serializers.ModelSerializer):
     phone = serializers.CharField(required=False, max_length=11, min_length=11, allow_null=True, help_text="手机号",
                                   error_messages={"max_length": "手机号错误", "min_length": "手机号错误"}, )
 
+    def to_representation(self, instance):
+        # ret = super(UserSerializer, self).to_representation(instance)
+        ret = super(UserSerializer, self).to_representation(instance)
+        ret['github_token'] = "*" * 16
+        return ret
+
     class Meta:
         model = User
         fields = ("id", "username", "name", "phone", "email", "is_active", "last_login", "github_username")
@@ -33,13 +39,15 @@ class UserRegSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=32, label="姓名", help_text="用户姓名，中文姓名")
     username = serializers.CharField(max_length=32, label="用户名", help_text="用户名，用户登陆名")
     password = serializers.CharField(style={"input_type": "password"}, label="密码", write_only=True, help_text="密码")
+    github_username = serializers.CharField(max_length=40, label='github account', help_text='github account')
+    github_token = serializers.CharField(max_length=100, label='github token', help_text='github token')
     phone = serializers.CharField(max_length=11, min_length=11, label="手机号", required=False,
                                   allow_null=True, allow_blank=True, help_text="手机号")
 
     def create(self, validated_data):
         validated_data["is_active"] = False
         instance = super(UserRegSerializer, self).create(validated_data=validated_data)
-        instance.email = "{}{}".format(instance.username, settings.DOMAIN)
+        # instance.email = "{}{}".format(instance.username, settings.DOMAIN)
 
         instance.set_password(validated_data["password"])
         instance.id_rsa_key, instance.id_rsa_pub = self.get_sshkey(instance.email)
@@ -67,4 +75,4 @@ class UserRegSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "password", "name", "id", "phone")
+        fields = ("username", "password", "name", "id", "phone", "github_username", "github_token")

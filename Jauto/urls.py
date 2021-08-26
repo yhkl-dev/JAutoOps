@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from databases.router import database_router
 from django.conf.urls import url, include
 from groups.router import group_router
 from menu.router import menu_router
@@ -35,6 +36,7 @@ router.registry.extend(resource_router.registry)
 router.registry.extend(instance_router.registry)
 router.registry.extend(project_router.registry)
 router.registry.extend(product_router.registry)
+router.registry.extend(database_router.registry)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

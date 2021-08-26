@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'resources.apps.ResourcesConfig',
     'servers.apps.ServersConfig',
     'project.apps.ProjectConfig',
-    'product.apps.ProductConfig'
+    'product.apps.ProductConfig',
+    'databases.apps.DatabasesConfig'
 ]
 
 MIDDLEWARE = [

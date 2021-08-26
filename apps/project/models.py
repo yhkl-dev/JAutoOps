@@ -23,7 +23,7 @@ class ProjectModel(models.Model):
     project_name = models.CharField('project name', max_length=50, null=False, unique=True, help_text='project name')
 
     belong_product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, verbose_name='belong product',
-                                       null=False,
+                                       null=False, default=None,
                                        related_name='belong_product', help_text='belong product')
 
     create_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='create user', null=False,

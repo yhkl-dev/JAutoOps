@@ -14,7 +14,7 @@ User = get_user_model()
 
 class GroupsViewset(viewsets.ModelViewSet):
     """
-    list:
+    list:Group
     返回用户组（角色）列表
     destroy:
     删除角色

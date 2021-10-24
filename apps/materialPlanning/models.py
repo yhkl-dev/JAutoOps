@@ -2,9 +2,45 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from material.models import MaterialModel, MaterialGroup,Plant,  ImportanceLevelModel, TechnologyCode, PurchaseTypeModel, ImportanceLevelModel, GICategoryModel
 
+
 User = get_user_model()
 
+
+class PlanningStatusRuleModel(models.Model):
+    status_name = models.CharField('status name', max_length=100, null=True, default=None, help_text='status name')
+    next_status_name = models.CharField('next status name', max_length=100, null=True, default=None, help_text='next status name')
+    comment = models.DateTimeField('comment', auto_now_add=True, help_text='create time')
+
+    def __str__(self):
+        return f"Rule: {self.status_name}:{self.next_status_name}"
+
+    class Meta:
+        ordering = ['id']
+        db_table = 't_material_planning_status'
+
+
 class MaterialPlanningModel(models.Model):
+    STATUS_CHOICE = (
+        (1, 'Start'),
+        (2, 'Waiting'),
+        (3, 'MRHConfirming'),
+        (4, 'Pending'),
+        (5, 'MRHConfirmed'),
+        (6, 'STRConfirming'),
+        (7, 'STRConfirmed'),
+        (8, 'STRBalanced'),
+        (9, 'STRFinished'),
+        (10, 'OTBCollection'),
+        (11, 'PRProcessing'),
+        (12, 'OrderCreating'),
+        (13, 'OrderConfirming'),
+        (14, 'OrderConfirmed'),
+        (15, 'Producing'),
+        (16, 'Delivery'),
+        (17, 'GoodsReady'),
+        (18, 'GoodsReceived'),
+        (19, 'Invoice'),
+    )
     material_number = models.ForeignKey(MaterialModel, on_delete=models.CASCADE, null=False,
                                             verbose_name='material_basic_info',
                                             related_name='material_basic_info', help_text='零件号')
@@ -29,7 +65,9 @@ class MaterialPlanningModel(models.Model):
     gi_category = models.ForeignKey(GICategoryModel, on_delete=models.CASCADE, null=False, verbose_name='gi_category',
                                      related_name='gi_category', help_text='GI类别')
 
-    storage_location = models.CharField('存储库位', max_length=100, null=True, default=None, help_text='StorageLocation')
+    planning_status = models.CharField("current status",choices=STATUS_CHOICE, max_length=100, null=False, default="Start", help_text="Planning status")
+
+    storage_location = models.CharField('存储库位', max_length=100, null=True, default=None, help_text='Storage Location')
     part_description_zh = models.CharField('零件描述(中文)', max_length=100, null=True, default=None, help_text='Part Description Zh')
     part_description_en = models.CharField('零件描述(英文)', max_length=100, null=True, default=None, help_text='Part Description EN')
     dimension = models.CharField('技术数据', max_length=100, null=True, default=None, help_text='Dimension')
@@ -57,7 +95,8 @@ class MaterialPlanningModel(models.Model):
     installation_quantity = models.CharField('安装数量', max_length=100, null=True, default=None, help_text='Installation Quantity')
     part_special_treatment = models.CharField('零件特殊处理', max_length=100, null=True, default=None, help_text='PartSpecial Treatment')
     surplus_stock = models.CharField('剩余库存', max_length=100, null=True, default=None, help_text='Surplus Stock')
-    create_at = models.DateTimeField('create time', auto_now_add=True, help_text='create time')
+    create_at = models.DateTimeField('create time', auto_now_add=True, null=True, help_text='create time')
+    update_at = models.DateTimeField('update time', auto_now=True, help_text='update time')
 
     def __str__(self):
         return self.part_description_zh
@@ -65,3 +104,5 @@ class MaterialPlanningModel(models.Model):
     class Meta:
         ordering = ['id']
         db_table = 't_material_planning'
+
+

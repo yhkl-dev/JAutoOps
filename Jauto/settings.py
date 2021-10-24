@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
     'databases.apps.DatabasesConfig',
     'materialPlanning.apps.MaterialplanningConfig',
-    'material.apps.MaterialConfig'
+    'material.apps.MaterialConfig',
+    'workflow.apps.WorkflowConfig',
 ]
 
 MIDDLEWARE = [

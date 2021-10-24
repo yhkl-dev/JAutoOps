@@ -28,6 +28,7 @@ from servers.router import instance_router
 from users.router import user_router
 from material.router import material_router
 from materialPlanning.router import material_planning_router
+from workflow.router import workflow_router
 
 router = DefaultRouter()
 router.registry.extend(user_router.registry)
@@ -41,6 +42,7 @@ router.registry.extend(product_router.registry)
 router.registry.extend(database_router.registry)
 router.registry.extend(material_router.registry)
 router.registry.extend(material_planning_router.registry)
+router.registry.extend(workflow_router.registry)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

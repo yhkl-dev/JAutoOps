@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from material.models import MaterialModel, MaterialGroup,Plant,  ImportanceLevelModel, TechnologyCode, PurchaseTypeModel, ImportanceLevelModel, GICategoryModel
+from material.models import MaterialModel, MaterialGroup, Plant, ImportanceLevelModel, TechnologyCode, PurchaseTypeModel, ImportanceLevelModel, GICategoryModel
+from workflow.models import WorkFlowEntityModel, WorkFlowModel
 
 
 User = get_user_model()
@@ -28,7 +29,7 @@ class MaterialPlanningModel(models.Model):
         (5, 'MRHConfirmed'),
         (6, 'STRConfirming'),
         (7, 'STRConfirmed'),
-        (8, 'STRBalanced'),
+        (8, 'STRBalanced'),  # pass -> STRFinished / reject STRConfirmed
         (9, 'STRFinished'),
         (10, 'OTBCollection'),
         (11, 'PRProcessing'),
@@ -40,6 +41,7 @@ class MaterialPlanningModel(models.Model):
         (17, 'GoodsReady'),
         (18, 'GoodsReceived'),
         (19, 'Invoice'),
+        (20, "Cancel")
     )
     material_number = models.ForeignKey(MaterialModel, on_delete=models.CASCADE, null=False,
                                             verbose_name='material_basic_info',
@@ -64,6 +66,12 @@ class MaterialPlanningModel(models.Model):
 
     gi_category = models.ForeignKey(GICategoryModel, on_delete=models.CASCADE, null=False, verbose_name='gi_category',
                                      related_name='gi_category', help_text='GI类别')
+
+    workflow_template = models.ForeignKey(WorkFlowModel, on_delete=models.CASCADE, null=False, verbose_name='workflow template',
+                                     related_name='workflow_template', help_text='workflow template')
+
+    workflow_entity = models.ForeignKey(WorkFlowEntityModel, on_delete=models.CASCADE, null=False, verbose_name='workflow entity',
+                                     related_name='workflow_entity', help_text='workflow entity')
 
     planning_status = models.CharField("current status",choices=STATUS_CHOICE, max_length=100, null=False, default="Start", help_text="Planning status")
 

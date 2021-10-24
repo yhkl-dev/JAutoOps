@@ -1,7 +1,7 @@
 from rest_framework import viewsets, mixins
 
 from Jauto.paginations import Pagination
-from .filter import ServerAliCloudInstanceModelFilter
+from .filter import ServerAliCloudInstanceModelFilter, ServerAliCloudInstanceUserModelFilter
 from .models import ServerAliCloudInstanceModel, ServerALiCloudUserModel
 from .serializer import ServerAliCloudInstanceSerializer, ServerALiCloudUserModelSerializer
 
@@ -18,3 +18,5 @@ class ServerALiCloudUserModelViewSet(viewsets.ModelViewSet):
     queryset = ServerALiCloudUserModel.objects.all()
     serializer_class = ServerALiCloudUserModelSerializer
     pagination_class = Pagination
+    filter_class = ServerAliCloudInstanceUserModelFilter
+    filter_fields = ("belong_instance",)
